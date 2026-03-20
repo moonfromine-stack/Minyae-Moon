@@ -1,6 +1,8 @@
 import streamlit as st
 import random
 import matplotlib.pyplot as plt
+from PIL import Image, ImageDraw, ImageFont
+import io
 
 st.set_page_config(page_title="가치관 테스트", page_icon="✨")
 
@@ -148,5 +150,36 @@ else:
         st.write("- 배우는 과정 자체를 즐깁니다.")
     if "커뮤니티" in top3:
         st.write("- 소속감과 관계를 중요하게 생각합니다.")
-    
+
+def create_result_image(sorted_scores):
+    width, height = 800, 1000
+    img = Image.new("RGB", (width, height), "white")
+    draw = ImageDraw.Draw(img)
+
+    try:
+        font_title = ImageFont.truetype("arial.ttf", 50)
+        font_text = ImageFont.truetype("arial.ttf", 30)
+    except:
+        font_title = ImageFont.load_default()
+        font_text = ImageFont.load_default()
+
+    # 제목
+    draw.text((50, 50), "나의 가치관 테스트 결과", fill="black", font=font_title)
+
+    # 결과 출력
+    y = 150
+    for i, (v, s) in enumerate(sorted_scores[:5]):
+        text = f"{i+1}. {v} ({s}점)"
+        draw.text((50, y), text, fill="black", font=font_text)
+        y += 80
+
+    # 하단 문구
+    draw.text((50, height-100), "Made by YOU ✨", fill="gray", font=font_text)
+
+    # 이미지 → 바이트 변환
+    buf = io.BytesIO()
+    img.save(buf, format="PNG")
+    buf.seek(0)
+
+    return buf
 
