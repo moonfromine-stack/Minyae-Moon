@@ -183,3 +183,14 @@ def create_result_image(sorted_scores):
 
     return buf
 
+
+# 이미지 생성
+img_bytes = create_result_image(sorted_scores)
+
+st.download_button(
+    label="📸 결과 이미지 저장",
+    data=img_bytes,
+    file_name="value_test_result.png",
+    mime="image/png"
+)
+
