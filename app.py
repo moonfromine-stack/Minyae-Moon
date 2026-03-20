@@ -149,17 +149,4 @@ else:
     if "커뮤니티" in top3:
         st.write("- 소속감과 관계를 중요하게 생각합니다.")
     
-    # 그래프
-    labels = [v[0] for v in sorted_scores]
-    values = [v[1] for v in sorted_scores]
-    
-    fig, ax = plt.subplots()
-    ax.barh(labels, values)
-    ax.invert_yaxis()
-    
-    st.pyplot(fig)
 
-    if st.button("다시하기"):
-        for key in st.session_state.keys():
-            del st.session_state[key]
-        st.rerun()
