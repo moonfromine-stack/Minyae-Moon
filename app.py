@@ -1,5 +1,4 @@
 import random
-from IPython.display import display, clear_output
 import ipywidgets as widgets
 
 # 질문 리스트 (질문, YES일 때 가치, NO일 때 가치)
